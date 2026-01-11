@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Citizen Juries for Portland — Bring Informed Democracy to City Ballot Measures</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --rose: #E91E63;
+      --rose-dark: #C2185B;
+      --rose-light: #FCE4EC;
+      --steel: #37474F;
+      --bridge-gray: #546E7A;
+      --rain: #90A4AE;
+      --mist: #ECEFF1;
+      --river: #0288D1;
+      --river-dark: #01579B;
+      --white: #FFFFFF;
+      --text: #263238;
+      --text-light: #607D8B;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      background: var(--white);
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--mist);
+      z-index: 1000;
+      padding: 16px 0;
+    }
+
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--steel);
+    }
+
+    .logo span {
+      color: var(--rose);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 32px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-light);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--rose);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 160px 0 100px;
+      background: linear-gradient(135deg, var(--steel) 0%, var(--bridge-gray) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+    }
+
+    /* Bridge silhouette decoration */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: linear-gradient(to top, rgba(0,0,0,0.1), transparent);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--rose);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      color: white;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--rose-light);
+    }
+
+    .hero-sub {
+      font-size: 1.25rem;
+      color: var(--rain);
+      margin-bottom: 40px;
+      max-width: 600px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat {
+      text-align: left;
+    }
+
+    .hero-stat-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--rose-light);
+    }
+
+    .hero-stat-label {
+      font-size: 0.9rem;
+      color: var(--rain);
+      max-width: 150px;
+    }
+
+    /* Section styling */
+    section {
+      padding: 100px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 60px;
+    }
+
+    .section-header h2 {
+      font-size: 2.25rem;
+      margin-bottom: 16px;
+      color: var(--steel);
+    }
+
+    .section-header p {
+      color: var(--text-light);
+      font-size: 1.1rem;
+    }
+
+    /* What is CIR */
+    .what-is-cir {
+      background: var(--mist);
+    }
+
+    .cir-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+    }
+
+    .cir-card {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+
+    .cir-card-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--rose-light);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    .cir-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      color: var(--steel);
+    }
+
+    .cir-card p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    /* State Evidence */
+    .state-evidence {
+      background: white;
+    }
+
+    .evidence-highlight {
+      background: linear-gradient(135deg, var(--river-dark) 0%, var(--river) 100%);
+      border-radius: 20px;
+      padding: 48px;
+      color: white;
+      margin-bottom: 48px;
+    }
+
+    .evidence-highlight h3 {
+      font-size: 1.75rem;
+      margin-bottom: 16px;
+    }
+
+    .evidence-highlight p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 700px;
+    }
+
+    .evidence-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+    }
+
+    .evidence-item {
+      padding: 24px;
+      border: 2px solid var(--mist);
+      border-radius: 12px;
+      transition: border-color 0.2s;
+    }
+
+    .evidence-item:hover {
+      border-color: var(--rose);
+    }
+
+    .evidence-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--rose);
+      margin-bottom: 8px;
+    }
+
+    .evidence-label {
+      font-weight: 600;
+      color: var(--steel);
+      margin-bottom: 8px;
+    }
+
+    .evidence-desc {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    /* Portland Proposal */
+    .portland-proposal {
+      background: var(--steel);
+      color: white;
+    }
+
+    .portland-proposal .section-header h2 {
+      color: white;
+    }
+
+    .portland-proposal .section-header p {
+      color: var(--rain);
+    }
+
+    .proposal-comparison {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 32px;
+      align-items: center;
+      margin-bottom: 48px;
+    }
+
+    @media (max-width: 768px) {
+      .proposal-comparison {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .proposal-box {
+      background: rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+    }
+
+    .proposal-box.current {
+      opacity: 0.7;
+    }
+
+    .proposal-box.new {
+      background: var(--rose);
+      box-shadow: 0 8px 32px rgba(233, 30, 99, 0.3);
+    }
+
+    .proposal-box h4 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      opacity: 0.8;
+    }
+
+    .proposal-box .signatures {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .proposal-box .percent {
+      font-size: 1rem;
+      opacity: 0.8;
+      margin-bottom: 16px;
+    }
+
+    .proposal-box .cost {
+      font-size: 1.1rem;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .proposal-arrow {
+      font-size: 2rem;
+      color: var(--rain);
+    }
+
+    .proposal-bottom-line {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+      border: 2px solid rgba(255,255,255,0.1);
+    }
+
+    .proposal-bottom-line h3 {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+      color: var(--rose-light);
+    }
+
+    .proposal-bottom-line p {
+      color: var(--rain);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Better Filter Section */
+    .better-filter {
+      background: white;
+    }
+
+    .argument-block {
+      max-width: 800px;
+      margin: 0 auto 48px;
+      padding: 40px;
+      background: var(--mist);
+      border-radius: 16px;
+      border-left: 4px solid var(--rose);
+    }
+
+    .argument-block h3 {
+      font-size: 1.4rem;
+      color: var(--steel);
+      margin-bottom: 16px;
+    }
+
+    .argument-block p {
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .argument-block p:last-child {
+      margin-bottom: 0;
+    }
+
+    .argument-block em {
+      color: var(--rose-dark);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    .comparison-table {
+      max-width: 800px;
+      margin: 48px auto;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    .comparison-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .comparison-table th {
+      background: var(--steel);
+      color: white;
+      padding: 20px;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    .comparison-table td {
+      padding: 20px;
+      border-bottom: 1px solid var(--mist);
+      vertical-align: top;
+    }
+
+    .comparison-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .comparison-table .check {
+      color: var(--rose);
+      font-weight: 700;
+    }
+
+    .comparison-table .x {
+      color: var(--rain);
+    }
+
+    /* Implementation */
+    .implementation {
+      background: var(--mist);
+    }
+
+    .impl-steps {
+      display: grid;
+      gap: 24px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .impl-step {
+      display: flex;
+      gap: 24px;
+      background: white;
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+
+    .impl-step-num {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      background: var(--rose);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+
+    .impl-step h4 {
+      font-size: 1.1rem;
+      color: var(--steel);
+      margin-bottom: 8px;
+    }
+
+    .impl-step p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    /* CTA */
+    .cta {
+      background: linear-gradient(135deg, var(--rose-dark) 0%, var(--rose) 100%);
+      padding: 100px 0;
+      text-align: center;
+    }
+
+    .cta h2 {
+      color: white;
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+    }
+
+    .cta p {
+      color: rgba(255,255,255,0.9);
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 16px 32px;
+      border-radius: 100px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-white {
+      background: white;
+      color: var(--rose);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: white;
+      border: 2px solid rgba(255,255,255,0.5);
+    }
+
+    .btn-outline:hover {
+      border-color: white;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--steel);
+      color: var(--rain);
+      padding: 48px 0;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: var(--rose-light);
+    }
+
+    /* Research section */
+    .research {
+      background: white;
+      border-top: 1px solid var(--mist);
+    }
+
+    .research-sources {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .research-sources h4 {
+      color: var(--steel);
+      margin-bottom: 16px;
+    }
+
+    .research-sources ul {
+      list-style: none;
+    }
+
+    .research-sources li {
+      margin-bottom: 12px;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .research-sources li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--rose);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+      }
+
+      .hero-stats {
+        gap: 32px;
+      }
+
+      .proposal-arrow {
+        transform: rotate(90deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <div class="logo">Citizen Juries for <span>PDX</span></div>
+      <ul>
+        <li><a href="#what-is-cir">What is CIR?</a></li>
+        <li><a href="#evidence">Evidence</a></li>
+        <li><a href="#proposal">The Proposal</a></li>
+        <li><a href="#why-it-works">Why It Works</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">A proposal for Portland</div>
+        <h1>What if Portland voters had a <em>citizen jury</em> weigh in on every ballot measure?</h1>
+        <p class="hero-sub">Oregon pioneered the Citizens' Initiative Review—randomly selected voters who study ballot measures and share their findings. It works. Let's bring it to Portland city measures.</p>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="hero-stat-number">6–10%</div>
+            <div class="hero-stat-label">Vote shift toward jury's position in controlled studies</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-number">25+ pts</div>
+            <div class="hero-stat-label">Knowledge gain for panelists vs. general public</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-number">80%</div>
+            <div class="hero-stat-label">Of voters find CIR statements useful across party lines</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What is CIR -->
+  <section class="what-is-cir" id="what-is-cir">
+    <div class="container">
+      <div class="section-header">
+        <h2>What is a Citizens' Initiative Review?</h2>
+        <p>Oregon invented this process in 2010. Here's how it works.</p>
+      </div>
+      <div class="cir-grid">
+        <div class="cir-card">
+          <div class="cir-card-icon">🎲</div>
+          <h3>Random Selection</h3>
+          <p>20–24 registered voters are randomly selected and screened to form a demographically representative panel—like a jury, but for democracy.</p>
+        </div>
+        <div class="cir-card">
+          <div class="cir-card-icon">📚</div>
+          <h3>Deep Deliberation</h3>
+          <p>Over 4–5 days, panelists hear from advocates on both sides, question expert witnesses, and discuss the measure's real-world implications.</p>
+        </div>
+        <div class="cir-card">
+          <div class="cir-card-icon">📝</div>
+          <h3>Key Findings</h3>
+          <p>The panel produces a balanced "Citizens' Statement" with key findings—facts they believe voters should consider—plus their final vote.</p>
+        </div>
+        <div class="cir-card">
+          <div class="cir-card-icon">📬</div>
+          <h3>Voter Education</h3>
+          <p>The statement goes in the official Voters' Pamphlet, reaching every household. Voters get trusted, peer-reviewed information—not just ads.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- State Evidence -->
+  <section class="state-evidence" id="evidence">
+    <div class="container">
+      <div class="section-header">
+        <h2>Proven at the State Level</h2>
+        <p>Oregon's CIR has been studied extensively. The results are remarkable.</p>
+      </div>
+
+      <div class="evidence-highlight">
+        <h3>Voters exposed to CIR statements shift 6–10% toward the panel's position</h3>
+        <p>In controlled experiments by researchers at Penn State, voters who read the Citizens' Statement were significantly more likely to align with the jury's verdict—not because they were told how to vote, but because they received better information.</p>
+      </div>
+
+      <div class="evidence-grid">
+        <div class="evidence-item">
+          <div class="evidence-number">25+</div>
+          <div class="evidence-label">Point knowledge advantage</div>
+          <div class="evidence-desc">Panelists score dramatically higher on policy knowledge tests than the general public after deliberation.</div>
+        </div>
+        <div class="evidence-item">
+          <div class="evidence-number">80%</div>
+          <div class="evidence-label">Cross-partisan trust</div>
+          <div class="evidence-desc">Democrats, Republicans, and independents all rate CIR statements as useful—rare in today's polarized environment.</div>
+        </div>
+        <div class="evidence-item">
+          <div class="evidence-number">7</div>
+          <div class="evidence-label">State measures reviewed</div>
+          <div class="evidence-desc">Oregon CIR panels have evaluated measures on mandatory minimums, casinos, GMO labeling, corporate taxes, and more.</div>
+        </div>
+        <div class="evidence-item">
+          <div class="evidence-number">70→29%</div>
+          <div class="evidence-label">Casino measure polling collapse</div>
+          <div class="evidence-desc">Measure 82 polled at 70% support before CIR. After the panel revealed out-of-state profit flows, it failed 71-29%.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portland Proposal -->
+  <section class="portland-proposal" id="proposal">
+    <div class="container">
+      <div class="section-header">
+        <h2>The Portland Proposal</h2>
+        <p>Bring citizen juries to city ballot measures—at no extra cost to petitioners.</p>
+      </div>
+
+      <div class="proposal-comparison">
+        <div class="proposal-box current">
+          <h4>Current System</h4>
+          <div class="signatures">~42,000</div>
+          <div class="percent">9% of registered voters</div>
+          <div class="cost">Total cost: <strong>$500–630K</strong></div>
+        </div>
+        <div class="proposal-arrow">→</div>
+        <div class="proposal-box new">
+          <h4>With Citizen Jury</h4>
+          <div class="signatures">~25,000</div>
+          <div class="percent">~5% of registered voters</div>
+          <div class="cost">Signatures + $200K jury = <strong>$500–575K</strong></div>
+        </div>
+      </div>
+
+      <div class="proposal-bottom-line">
+        <h3>Same total cost. Better outcomes.</h3>
+        <p>Petitioners redirect money from signature-gathering busywork into actual voter education. Portland voters get a trusted, peer-reviewed analysis of every citizen initiative.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Better Filter -->
+  <section class="better-filter" id="why-it-works">
+    <div class="container">
+      <div class="section-header">
+        <h2>Why Reducing Signatures Doesn't Matter</h2>
+        <p>And why a citizen jury is actually a <em>better</em> filter for ballot access.</p>
+      </div>
+
+      <div class="argument-block">
+        <h3>Signatures don't test viability—they test fundraising.</h3>
+        <p>The theory behind signature requirements is that they filter out frivolous measures by requiring demonstrated public support. But here's the problem: <em>any</em> issue can collect 9% of registered voters if the backers have enough money.</p>
+        <p>At $12–15 per signature, qualification is simply a function of budget. A wealthy interest group or out-of-state PAC can buy their way onto the ballot regardless of whether Portlanders actually support the idea. The signature requirement isn't a test of public will—it's a toll booth.</p>
+      </div>
+
+      <div class="argument-block">
+        <h3>Signatures are all "yes" votes. There's no "no" option.</h3>
+        <p>When a circulator asks "Will you sign this petition?", the only possible outcome is support or indifference. There's no mechanism for opposition. Someone who thinks a measure is a terrible idea simply doesn't sign—their view is invisible.</p>
+        <p>This means signatures can never answer the question that actually matters: <em>"Is this thing likely enough to pass that it's worth putting before voters?"</em></p>
+      </div>
+
+      <div class="argument-block">
+        <h3>A citizen jury verdict <em>is</em> a yes-vs-no outcome.</h3>
+        <p>When 20+ randomly selected Portlanders spend four days studying a measure and then vote 17-7 against it, that's meaningful signal. It's not perfect prediction—sometimes juries and voters disagree—but it's <em>informed</em> signal from a representative sample.</p>
+        <p>More importantly, when a jury votes against a measure, voters hear about it. The CIR statement goes to every household. That 6–10% opinion shift means <em>bad measures are more likely to fail</em>.</p>
+      </div>
+
+      <div class="comparison-table">
+        <table>
+          <tr>
+            <th>Filter Mechanism</th>
+            <th>Signature Requirement</th>
+            <th>Citizen Jury</th>
+          </tr>
+          <tr>
+            <td><strong>Tests actual support?</strong></td>
+            <td class="x">No—only tests funding</td>
+            <td class="check">Yes—jury deliberates and votes</td>
+          </tr>
+          <tr>
+            <td><strong>Allows opposition voice?</strong></td>
+            <td class="x">No—signatures are only "yes"</td>
+            <td class="check">Yes—jury hears both sides</td>
+          </tr>
+          <tr>
+            <td><strong>Demographically representative?</strong></td>
+            <td class="x">No—skews to those approached</td>
+            <td class="check">Yes—random stratified sample</td>
+          </tr>
+          <tr>
+            <td><strong>Informed decision?</strong></td>
+            <td class="x">No—30-second pitch</td>
+            <td class="check">Yes—4-5 days of study</td>
+          </tr>
+          <tr>
+            <td><strong>Affects election outcome?</strong></td>
+            <td class="x">No—just gate to ballot</td>
+            <td class="check">Yes—6-10% opinion shift</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="argument-block">
+        <h3>The citizen jury is a better filter—and it doesn't block ballot access.</h3>
+        <p>We're not proposing that juries decide what reaches the ballot. The measure still goes to voters. But the jury's verdict <em>travels with it</em>—educating voters and creating meaningful consequences for measures that can't survive informed scrutiny.</p>
+        <p>A measure that a jury of peers rejects 18-6 after careful study faces a 6–10% headwind with voters. That's a real filter. And unlike signatures, it's a filter based on <em>merit</em>, not money.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Implementation -->
+  <section class="implementation" id="implementation">
+    <div class="container">
+      <div class="section-header">
+        <h2>How Portland Could Make This Happen</h2>
+        <p>The path to citizen juries for city measures.</p>
+      </div>
+
+      <div class="impl-steps">
+        <div class="impl-step">
+          <div class="impl-step-num">1</div>
+          <div>
+            <h4>City Charter Amendment or Ordinance</h4>
+            <p>Portland could adopt this through a citizen initiative or City Council action. The charter already governs initiative signature requirements (currently 9% of registered voters)—this would modify that threshold and add the CIR funding requirement.</p>
+          </div>
+        </div>
+        <div class="impl-step">
+          <div class="impl-step-num">2</div>
+          <div>
+            <h4>Agreement with Multnomah County</h4>
+            <p>Portland already has MOUs with Multnomah County for election administration (they partnered on RCV implementation). A similar agreement could ensure CIR statements appear in the county voters' pamphlet alongside city measures.</p>
+          </div>
+        </div>
+        <div class="impl-step">
+          <div class="impl-step-num">3</div>
+          <div>
+            <h4>Panel Administration</h4>
+            <p>Oregon's existing CIR Commission has deep expertise in running these panels. Portland could contract with them or establish a city-level process using the same proven methodology.</p>
+          </div>
+        </div>
+        <div class="impl-step">
+          <div class="impl-step-num">4</div>
+          <div>
+            <h4>Optional or Mandatory?</h4>
+            <p>The cleanest design: petitioners who want the reduced signature threshold (5%) must fund the CIR panel. Those who prefer the traditional path (9%) can skip it. This preserves choice while creating strong incentives for participation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container">
+      <h2>Portland can lead on democratic innovation—again.</h2>
+      <p>We pioneered ranked-choice voting for city elections. We can pioneer citizen juries for city measures. Let's build democracy infrastructure that helps voters make informed decisions.</p>
+      <div class="cta-buttons">
+        <a href="#" class="btn btn-white">Get Involved</a>
+        <a href="#" class="btn btn-outline">Read the Research</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Research -->
+  <section class="research">
+    <div class="container">
+      <div class="research-sources">
+        <h4>Research & Sources</h4>
+        <ul>
+          <li>Gastil, J., Knobloch, K., et al. (2018). "Assessing the Electoral Impact of the 2010 Oregon Citizens' Initiative Review." <em>American Politics Research</em>, 46(3), 534-563.</li>
+          <li>Knobloch, K., et al. (2013). "Did They Deliberate? Applying an Evaluative Model of Democratic Deliberation." <em>Journal of Applied Communication Research</em>, 41(2), 105-125.</li>
+          <li>Gastil, J. & Knobloch, K. (2020). <em>Hope for Democracy: How Citizens Can Bring Reason Back into Politics</em>. Oxford University Press.</li>
+          <li>Oregon Citizens' Initiative Review Commission: <a href="https://www.oregon.gov/circ">oregon.gov/circ</a></li>
+          <li>Healthy Democracy (CIR administrators): <a href="https://healthydemocracy.org">healthydemocracy.org</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>A proposal for Portland, Oregon. Not affiliated with any government agency.</p>
+      <p style="margin-top: 12px;">Questions? <a href="mailto:hello@example.com">Get in touch</a></p>
+    </div>
+  </footer>
+
+</body>
+</html>
